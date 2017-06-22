@@ -170,8 +170,20 @@ module Sprockets
       end
 
       def process_source
-        unless @has_written_body || processed_header.empty?
-          @result << processed_header << "\n"
+        @result = String.new("")
+        
+        temp_header = processed_header
+        unless @has_written_body || temp_header.empty?
+          
+          # 2017-06-22
+          # Backport https://github.com/rails/sprockets/commit/6012c9223f8289bb787e7d1accb3184ebe70ee10
+          # to avoid adding extra linebreak in header which breaks sourcemaps (e.g. causes off-by-one errors)
+          
+          # Ensure header ends in a new line like before it was processed
+          temp_header.chomp!
+          temp_header << "\n" if temp_header.length > 0 && header[-1] == "\n"
+          
+          @result << temp_header
         end
 
         included_pathnames.each do |pathname|
