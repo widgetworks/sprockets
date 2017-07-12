@@ -175,7 +175,7 @@ module Sprockets
         temp_header = processed_header
         unless @has_written_body || temp_header.empty?
           
-          # 2017-06-22
+          # 2017-06-22 Coridyn
           # Backport https://github.com/rails/sprockets/commit/6012c9223f8289bb787e7d1accb3184ebe70ee10
           # to avoid adding extra linebreak in header which breaks sourcemaps (e.g. causes off-by-one errors)
           
