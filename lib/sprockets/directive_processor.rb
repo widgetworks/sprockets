@@ -274,7 +274,7 @@ module Sprockets
           root = pathname.dirname.join(path).expand_path
 
           unless (stats = stat(root)) && stats.directory?
-            raise ArgumentError, "require_directory argument must be a directory"
+            raise ArgumentError, "require_directory argument must be a directory: \"#{path}\" inside \"#{context.pathname}\""
           end
 
           context.depend_on(root)
@@ -289,7 +289,7 @@ module Sprockets
           end
         else
           # The path must be relative and start with a `./`.
-          raise ArgumentError, "require_directory argument must be a relative path"
+          raise ArgumentError, "require_directory argument must be a relative path: \"#{path}\" inside \"#{context.pathname}\""
         end
       end
 
@@ -303,7 +303,7 @@ module Sprockets
           root = pathname.dirname.join(path).expand_path
 
           unless (stats = stat(root)) && stats.directory?
-            raise ArgumentError, "require_tree argument must be a directory"
+            raise ArgumentError, "require_tree argument must be a directory: \"#{path}\" inside \"#{context.pathname}\""
           end
 
           context.depend_on(root)
@@ -319,7 +319,7 @@ module Sprockets
           end
         else
           # The path must be relative and start with a `./`.
-          raise ArgumentError, "require_tree argument must be a relative path"
+          raise ArgumentError, "require_tree argument must be a relative path: \"#{path}\" inside \"#{context.pathname}\""
         end
       end
 
